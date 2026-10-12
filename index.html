@@ -74,6 +74,7 @@
       position: relative;
       isolation: isolate;
       overflow: hidden;
+      overflow: clip; /* hidden still scrolls when a field inside takes focus */
       min-height: 100vh;
       min-height: 100svh;
       display: flex;
@@ -108,32 +109,79 @@
     .addr {
       display: inline-flex;
       align-items: center;
+      gap: .5em;
+      max-width: 100%;
       margin: 0 0 1.15rem;
-      padding: .45em 1em .45em .9em;
+      padding: .3em .35em .3em .95em;
       border: 1px solid rgba(255, 243, 214, .22);
       border-radius: 999px;
       background: rgba(20, 13, 31, .6);
       font: 500 .9rem/1 ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
       white-space: nowrap;
+      transition: border-color .2s, box-shadow .2s;
     }
+    .addr:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(245, 185, 63, .18);
+    }
+    .addr__field {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      cursor: text;
+    }
+    .addr__field > span { flex: none; }
     .addr__dim { opacity: .5; }
-    .addr__slot {
+    .addr__field > .addr__slot {
       position: relative;
-      display: inline-block;
-      width: 3.3em;
-      height: 1.55em;
+      display: flex;
+      flex: 0 1 auto;
+      min-width: 0;
       margin: 0 .15em;
+    }
+    .addr__sub {
+      width: calc(var(--n, 4) * 1ch + .9em + 3px);
+      min-width: 0;
+      padding: .32em .45em;
       border: 1.5px dashed var(--gold);
       border-radius: .4em;
+      background: none;
+      color: var(--gold);
+      font: inherit;
+      caret-color: var(--gold);
+      outline: none;
     }
-    .addr__slot::after {
-      content: "";
+    .addr__sub:focus { border-style: solid; }
+    .addr__caret {
       position: absolute;
-      left: .4em; top: .24em; bottom: .24em;
+      left: .5em; top: .36em; bottom: .36em;
       width: .5em;
       background: var(--gold);
+      pointer-events: none;
       animation: caret 1.1s steps(1) infinite;
     }
+    .addr__sub:focus + .addr__caret,
+    .addr__sub:not(:placeholder-shown) + .addr__caret { display: none; }
+    .addr__slot.is-nope { animation: nope .4s ease-out; }
+    .addr__go {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 1.95em; height: 1.95em;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--ink);
+      cursor: pointer;
+      opacity: .35;
+      transition: opacity .2s, transform .15s;
+    }
+    .addr__go svg { width: 1.05em; height: 1.05em; }
+    .addr.has-text .addr__go { opacity: 1; }
+    .addr.has-text .addr__go:hover { transform: translateX(2px); }
+    .addr__go:focus-visible { outline: 3px solid var(--cream); outline-offset: 2px; }
+    .no-js .addr__go { display: none; }
 
     h1 {
       margin: 0;
@@ -384,6 +432,8 @@
     .drape--l { left: 0; border-right: 7px solid var(--gold); animation: part-l 1.25s cubic-bezier(.7, 0, .2, 1) .3s forwards; }
     .drape--r { right: 0; border-left: 7px solid var(--gold); animation: part-r 1.25s cubic-bezier(.7, 0, .2, 1) .3s forwards; }
     .no-js .drape { display: none; }
+    .is-leaving .drape--l { animation: shut-l .6s cubic-bezier(.7, 0, .2, 1) .1s both; }
+    .is-leaving .drape--r { animation: shut-r .6s cubic-bezier(.7, 0, .2, 1) .1s both; }
 
     /* ---------- the lights ---------- */
 
@@ -462,6 +512,13 @@
     @keyframes drop { from { opacity: 0; transform: translateY(-.7em) rotate(-7deg); } }
     @keyframes part-l { 60% { transform: translateX(-70%) skewX(6deg); } to { transform: translateX(-104%); visibility: hidden; } }
     @keyframes part-r { 60% { transform: translateX(70%) skewX(-6deg); } to { transform: translateX(104%); visibility: hidden; } }
+    @keyframes shut-l { from { transform: translateX(-104%); } }
+    @keyframes shut-r { from { transform: translateX(104%); } }
+    @keyframes nope {
+      20% { transform: translateX(-5px); }
+      45% { transform: translateX(4px); }
+      70% { transform: translateX(-2px); }
+    }
     @keyframes sway { from { transform: skewX(-.7deg); } to { transform: skewX(.9deg); } }
     @keyframes rustle {
       0%, 100% { transform: scaleX(var(--m, 1)) skewX(0); }
@@ -495,11 +552,21 @@
 
     @media (max-width: 520px) {
       .bill { padding-inline: calc(var(--curtain-w) + .8rem); }
-      .addr { font-size: .78rem; }
+      .addr { font-size: 1rem; padding-left: .7em; }
+      .addr__dim { display: none; }
       .why { margin-top: 1.3rem; }
       .why button { font-size: .92rem; }
       .credits { justify-content: center; font-size: .78rem; }
       .hint { display: none !important; }
+    }
+
+    @media (max-width: 359px) {
+      :root { --curtain-w: 36px; }
+      .addr__host { font-size: .82rem; }
+    }
+
+    @media (pointer: coarse) {
+      .addr { font-size: 1rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -539,7 +606,21 @@
 
   <div class="theatre" id="theatre">
     <main class="bill">
-      <p class="addr" aria-hidden="true"><span class="addr__dim">https://</span><span class="addr__slot"></span><span>.isindemo.com</span></p>
+      <form class="addr" id="addr" action="/" autocomplete="off">
+        <label class="addr__field">
+          <span class="addr__dim" aria-hidden="true">https://</span>
+          <span class="addr__slot">
+            <input class="addr__sub" id="sub" type="text" placeholder=" " maxlength="63"
+              aria-label="Subdomain to visit on isindemo.com" autocomplete="off"
+              inputmode="url" enterkeyhint="go" autocapitalize="none" autocorrect="off" spellcheck="false">
+            <i class="addr__caret" aria-hidden="true"></i>
+          </span>
+          <span class="addr__host" aria-hidden="true">.isindemo.com</span>
+        </label>
+        <button class="addr__go" type="submit" aria-label="Go to that subdomain">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
 
       <h1>
         <span class="w nothing" style="--i:0">Nothing</span>
@@ -697,6 +778,11 @@
       robot: 'Beep boop. Nothing to index. Tell the other bots.',
       snoop: 'Respect. The good stuff is on subdomains, though, and I’m no snitch.',
     };
+    const ADDRESS = {
+      empty: ['That’s the nothing I mentioned.', 'You have to type something first.', 'Still nothing. Try letters.'],
+      www: 'That’s just here, with extra letters.',
+      go: 'Right this way.',
+    };
 
     const $ = (s) => document.querySelector(s);
     const theatre = $('#theatre');
@@ -711,6 +797,9 @@
     const bubble = $('#bubble');
     const live = $('#live');
     const curtains = { '-1': $('.curtain--l'), '1': $('.curtain--r') };
+    const addr = $('#addr');
+    const sub = $('#sub');
+    const slot = $('.addr__slot');
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const rand = (a, b) => a + Math.random() * (b - a);
@@ -739,6 +828,9 @@
       M.run = clamp(M.w * .6, 380, 900);
       M.lampX = M.w / 2;
       M.lampY = valance.offsetHeight + 14;
+      const a = addr.getBoundingClientRect();
+      M.addrX = a.left + a.width / 2 + window.scrollX;
+      M.addrY = a.top + a.height / 2 + window.scrollY;
     }
     // The swagged curtain only covers ~45% of its width down at floor level.
     const wingX = (side) => side < 0 ? M.curtain * .42 - M.jw * .34 : M.w - (M.curtain * .42 - M.jw * .34);
@@ -810,8 +902,7 @@
       setState('flee');
     }
 
-    function answer(key) {
-      const text = ANSWERS[key];
+    function speak(text) {
       live.textContent = text;
       if (still) { say(text, Infinity); return; }
       j.hold = 2.6 + text.length * .045;
@@ -829,6 +920,11 @@
         rate = 5;
         spot.tx = j.x;
         spot.ty = M.jy - M.jh * .1;
+      } else if (document.activeElement === sub && now - pointerAt > .8) {
+        // someone is typing an address: light the address bar
+        rate = 4;
+        spot.tx = M.addrX;
+        spot.ty = M.addrY;
       } else if (now - pointerAt > 3.8) {
         rate = 2.4;
         auto.t += dt;
@@ -1007,8 +1103,59 @@
     document.documentElement.addEventListener('pointerleave', () => { pointerAt = -1e9; });
 
     document.querySelectorAll('[data-why]').forEach((b) => {
-      b.addEventListener('click', () => answer(b.dataset.why));
+      b.addEventListener('click', () => speak(ANSWERS[b.dataset.why]));
     });
+
+    // The address bar: type a subdomain, hit Enter, go see that demo.
+    const tidy = (v) => v.trim().toLowerCase()
+      .replace(/^[a-z]+:\/\//, '')
+      .replace(/[/?#].*$/, '')
+      .replace(/\.?isindemo\.com\.?$/, '')
+      .replace(/[^a-z0-9.-]/g, '');
+    function fit() {
+      sub.style.setProperty('--n', Math.max(4, sub.value.length + 1));
+      addr.classList.toggle('has-text', sub.value !== '');
+    }
+    let empties = 0;
+    let leaving = 0;
+    function reopen() {
+      clearTimeout(leaving);
+      leaving = 0;
+      theatre.classList.remove('is-leaving');
+    }
+    sub.addEventListener('input', () => {
+      const v = tidy(sub.value);
+      if (v !== sub.value) sub.value = v;
+      fit();
+    });
+    addr.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (leaving) return;
+      const name = tidy(sub.value).replace(/\.{2,}/g, '.').replace(/^[.-]+|[.-]+$/g, '');
+      if (!name || name === 'www') {
+        slot.classList.remove('is-nope');
+        void slot.offsetWidth;
+        slot.classList.add('is-nope');
+        speak(name ? ADDRESS.www : ADDRESS.empty[empties++ % ADDRESS.empty.length]);
+        sub.focus();
+        return;
+      }
+      const url = `https://${name}.isindemo.com/`;
+      if (still) { location.assign(url); return; }
+      speak(ADDRESS.go);
+      theatre.classList.add('is-leaving');
+      leaving = setTimeout(() => location.assign(url), 800);
+      setTimeout(reopen, 8000); // in case the trip never happens
+    });
+    // Coming back with the back button: raise the curtain again.
+    window.addEventListener('pageshow', (e) => { if (e.persisted) reopen(); });
+    // Start typing anywhere and it lands in the address bar.
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      if (document.activeElement === sub || !/^[a-z0-9]$/i.test(e.key)) return;
+      sub.focus();
+    });
+    fit();
 
     measure();
     spot.x = spot.tx = M.w / 2;
