@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nothing is in demo · isindemo.com</title>
+  <meta name="description" content="The empty main stage of isindemo.com. Client previews play on subdomains. The bare domain gets a janitor.">
+  <meta name="theme-color" content="#140d1f">
+  <meta property="og:title" content="Nothing is in demo.">
+  <meta property="og:description" content="Client previews play on subdomains. The bare domain gets a janitor.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://isindemo.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,100,1&display=swap">
+  <script>document.documentElement.className = 'js';</script>
+
+  <style>
+    :root {
+      --ink: #140d1f;
+      --cream: #fff3d6;
+      --gold: #f5b93f;
+      --gold-deep: #c98a1b;
+      --crimson: #b3213f;
+      --crimson-dark: #7d1330;
+      --mint: #3ad6bd;
+      --mint-deep: #1fa893;
+
+      --curtain-w: clamp(48px, 12vw, 190px);
+      --valance-h: clamp(44px, 8vh, 76px);
+      --scallop: clamp(64px, 9vw, 120px);
+      --apron-h: 44px;
+      --surface-h: clamp(52px, 9vh, 96px);
+      --j-w: clamp(100px, 18vmin, 160px);
+      --j-h: calc(var(--j-w) * 132 / 140);
+      --feet: calc(var(--apron-h) + var(--surface-h) * .34);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      height: 100%;
+      background: var(--ink);
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Fraunces", Georgia, "Times New Roman", serif;
+      font-variation-settings: "SOFT" 100, "WONK" 1;
+      font-synthesis: none;
+      color: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection { background: var(--gold); color: var(--ink); }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* ---------- the house ---------- */
+
+    .theatre {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .04) 0 3px, transparent 3px 68px),
+        radial-gradient(120% 90% at 50% 30%, #452f68 0%, #33224f 55%, #281a40 100%);
+    }
+
+    /* ---------- the playbill ---------- */
+
+    .bill {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding:
+        calc(var(--valance-h) + clamp(1.25rem, 4vh, 3rem))
+        calc(var(--curtain-w) + 1.25rem)
+        1rem;
+    }
+
+    .stage-space {
+      flex: none;
+      height: calc(var(--apron-h) + var(--surface-h) + var(--j-h) + 1.75rem);
+    }
+
+    .addr {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 1.15rem;
+      padding: .45em 1em .45em .9em;
+      border: 1px solid rgba(255, 243, 214, .22);
+      border-radius: 999px;
+      background: rgba(20, 13, 31, .6);
+      font: 500 .9rem/1 ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+      white-space: nowrap;
+    }
+    .addr__dim { opacity: .5; }
+    .addr__slot {
+      position: relative;
+      display: inline-block;
+      width: 3.3em;
+      height: 1.55em;
+      margin: 0 .15em;
+      border: 1.5px dashed var(--gold);
+      border-radius: .4em;
+    }
+    .addr__slot::after {
+      content: "";
+      position: absolute;
+      left: .4em; top: .24em; bottom: .24em;
+      width: .5em;
+      background: var(--gold);
+      animation: caret 1.1s steps(1) infinite;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 7.2vw, 6.2rem);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.025em;
+      text-wrap: balance;
+      text-shadow: 0 .05em 0 rgba(20, 13, 31, .55);
+    }
+    h1 .w { display: inline-block; }
+    h1 .nothing { color: var(--gold); }
+
+    .lede {
+      max-width: 33rem;
+      margin: 1.15rem 0 0;
+      font-size: clamp(1.03rem, .85rem + .55vw, 1.28rem);
+      line-height: 1.5;
+      color: rgba(255, 243, 214, .86);
+      text-wrap: pretty;
+    }
+
+    .why { margin-top: 1.6rem; }
+    .no-js .why { display: none; }
+    .why__q {
+      margin: 0 0 .7rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .why__opts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .55rem;
+    }
+    .why button {
+      padding: .55em 1.05em;
+      border: 1.5px solid rgba(255, 243, 214, .55);
+      border-radius: 999px;
+      background: rgba(20, 13, 31, .45);
+      color: var(--cream);
+      font: inherit;
+      font-size: .98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .15s, background-color .2s, border-color .2s, color .2s;
+    }
+    .why button:hover {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: var(--ink);
+      transform: translateY(-2px) rotate(-1.5deg);
+    }
+    .why button:nth-child(even):hover { transform: translateY(-2px) rotate(1.5deg); }
+    .why button:active { transform: translateY(1px) scale(.97); }
+    .why button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    /* ---------- the stage ---------- */
+
+    .floor {
+      position: absolute;
+      z-index: 2;
+      left: 0; right: 0; bottom: 0;
+      height: calc(var(--apron-h) + var(--surface-h));
+    }
+    .floor__surface {
+      position: absolute;
+      inset: 0 0 var(--apron-h);
+      overflow: hidden;
+      border-top: 3px solid #8f5a2b;
+      background: linear-gradient(#c98a4b, #dba160);
+    }
+    .floor__surface::before {
+      content: "";
+      position: absolute;
+      left: -60%; right: -60%; bottom: 0;
+      height: 420%;
+      transform-origin: 50% 100%;
+      transform: perspective(240px) rotateX(66deg);
+      background: repeating-linear-gradient(90deg, rgba(110, 62, 25, .5) 0 3px, transparent 3px 5%);
+    }
+    .floor__apron {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: var(--apron-h);
+      border-top: 6px solid #eab877;
+      background: linear-gradient(#6b3d1e, #4c2912);
+    }
+
+    .mic {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: calc(var(--apron-h) + var(--surface-h) * .6);
+      height: calc(var(--j-h) * 1.22);
+      transform: translateX(-50%);
+    }
+
+    .janitor {
+      position: absolute;
+      z-index: 4;
+      left: 0;
+      bottom: var(--feet);
+      width: var(--j-w);
+      height: var(--j-h);
+      transform: translateX(66vw);
+      will-change: transform;
+    }
+    .janitor__flip {
+      width: 100%; height: 100%;
+      transform-origin: 41.43% 50%;
+    }
+    .janitor svg {
+      display: block;
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+
+    .j-lean { transform-origin: 58px 124px; transition: transform .15s; }
+    .j-leg { transform-box: fill-box; transform-origin: 50% 0; }
+    .j-broom { transform-origin: 96px 58px; }
+    .j-eye, .j-pupil, .j-mouth--o { transform-box: fill-box; transform-origin: 50% 50%; }
+    .j-eye { animation: blink 4.6s infinite; }
+    .j-pupil { transition: transform .15s; }
+    .j-mouth { transition: opacity .1s; }
+    .j-mouth--o, .j-sweat, .j-zoom, .j-dust circle { opacity: 0; }
+
+    .janitor[data-moving="1"] .j-leg { animation: step .44s ease-in-out infinite; }
+    .janitor[data-moving="1"] .j-leg--b { animation-delay: -.22s; }
+    .janitor[data-moving="1"] .j-bob { animation: bob .22s ease-in-out infinite alternate; }
+
+    .janitor[data-state="sweep"] .j-broom { animation: sweep .8s ease-in-out infinite alternate; }
+    .janitor[data-state="sweep"] .j-dust circle { animation: dust 1.6s ease-out infinite; }
+    .janitor[data-state="sweep"] .j-dust circle:nth-child(2) { animation-delay: -.55s; }
+    .janitor[data-state="sweep"] .j-dust circle:nth-child(3) { animation-delay: -1.1s; }
+
+    .janitor[data-state="caught"] .j-bob { animation: shiver .08s linear infinite alternate; }
+    .janitor[data-state="caught"] .j-eye { animation: none; transform: scale(1.2); }
+    .janitor[data-state="caught"] .j-pupil { transform: scale(.5); }
+    .janitor[data-state="caught"] .j-sweat { animation: sweat .9s ease-in infinite; }
+
+    .janitor[data-state="flee"] .j-leg { animation-duration: .16s; }
+    .janitor[data-state="flee"] .j-lean { transform: rotate(11deg); }
+    .janitor[data-state="flee"] .j-eye { animation: none; transform: scale(1.1); }
+    .janitor[data-state="flee"] .j-zoom { animation: zoom .12s linear infinite alternate; }
+
+    .janitor[data-state="talk"] .j-mouth--o { animation: yap .2s ease-in-out infinite alternate; }
+
+    .janitor:is([data-state="caught"], [data-state="flee"], [data-state="talk"]) .j-mouth--calm { opacity: 0; }
+    .janitor:is([data-state="caught"], [data-state="flee"], [data-state="talk"]) .j-mouth--o { opacity: 1; }
+
+    .bubble {
+      position: absolute;
+      z-index: 12;
+      left: 0;
+      bottom: calc(var(--feet) + var(--j-h) + 12px);
+      width: max-content;
+      max-width: min(18rem, calc(100% - 2 * var(--curtain-w) - .75rem));
+      padding: .65em .95em;
+      border-radius: 1.1em;
+      background: var(--cream);
+      box-shadow: 0 5px 0 rgba(20, 13, 31, .35);
+      color: #281a40;
+      font-size: 1.02rem;
+      font-weight: 650;
+      line-height: 1.3;
+      text-align: center;
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transform: scale(.4);
+      transform-origin: var(--tail, 50%) 100%;
+      transition: transform .22s cubic-bezier(.34, 1.56, .64, 1), opacity .12s, visibility 0s .22s;
+    }
+    .bubble.is-on {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition-delay: 0s;
+    }
+    .bubble::after {
+      content: "";
+      position: absolute;
+      left: var(--tail, 50%);
+      bottom: -7px;
+      width: 16px; height: 16px;
+      margin-left: -8px;
+      border-radius: 3px;
+      background: inherit;
+      transform: rotate(45deg);
+    }
+
+    /* ---------- the drapery ---------- */
+
+    .curtain {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      bottom: var(--apron-h);
+      width: calc(var(--curtain-w) + 10px);
+      transform-origin: 50% 0;
+      animation: sway 6s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 14px rgba(20, 13, 31, .5));
+      pointer-events: none;
+    }
+    .curtain--l { left: -10px; }
+    .curtain--r { right: -10px; --m: -1; animation-delay: -3s; }
+    .curtain svg {
+      display: block;
+      width: 100%; height: 100%;
+      transform-origin: 50% 0;
+      transform: scaleX(var(--m, 1));
+    }
+    .curtain.is-rustle svg { animation: rustle .6s ease-out; }
+
+    .valance {
+      position: absolute;
+      z-index: 6;
+      top: 0; left: 0; right: 0;
+      height: var(--valance-h);
+      pointer-events: none;
+    }
+    .valance::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 44%;
+      border-bottom: 4px solid var(--gold);
+      background: repeating-linear-gradient(90deg, #a01a37 0 18px, #bb284c 18px 40px, #8e1530 40px 56px);
+    }
+    .valance::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 56%;
+      height: 76%;
+      background:
+        radial-gradient(ellipse 50% 100% at 50% 0, var(--crimson) 0 83%, var(--gold) 84% 97%, transparent 98%)
+        50% 0 / var(--scallop) 100% repeat-x;
+    }
+
+    .drape {
+      position: absolute;
+      z-index: 20;
+      top: 0; bottom: 0;
+      width: 51%;
+      background: repeating-linear-gradient(90deg, #8e1530 0 22px, #bb284c 22px 52px, #a01a37 52px 74px, #7d1330 74px 92px);
+      pointer-events: none;
+    }
+    .drape--l { left: 0; border-right: 7px solid var(--gold); animation: part-l 1.25s cubic-bezier(.7, 0, .2, 1) .3s forwards; }
+    .drape--r { right: 0; border-left: 7px solid var(--gold); animation: part-r 1.25s cubic-bezier(.7, 0, .2, 1) .3s forwards; }
+    .no-js .drape { display: none; }
+
+    /* ---------- the lights ---------- */
+
+    .dark {
+      --sx: 50%;
+      --sy: 74%;
+      --r: 140px;
+      position: absolute;
+      z-index: 7;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle var(--r) at var(--sx) var(--sy), rgba(255, 231, 160, .14) 0 90%, transparent 100%),
+        radial-gradient(circle var(--r) at var(--sx) var(--sy), transparent 0 90%, rgba(14, 8, 24, .62) 100%);
+    }
+    .beam {
+      position: absolute;
+      z-index: 8;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .lamp {
+      position: absolute;
+      z-index: 9;
+      left: 50%;
+      top: calc(var(--valance-h) - 22px);
+      width: 44px; height: 52px;
+      margin-left: -22px;
+      transform-origin: 50% 7px;
+      pointer-events: none;
+    }
+
+    /* ---------- the credits ---------- */
+
+    .credits {
+      position: absolute;
+      z-index: 10;
+      left: 0; right: 0; bottom: 0;
+      height: var(--apron-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 6px 1.25rem 0;
+      font-size: .84rem;
+      color: rgba(255, 243, 214, .72);
+    }
+    .credits a {
+      color: var(--cream);
+      font-weight: 650;
+      text-decoration-color: var(--gold);
+      text-underline-offset: .2em;
+    }
+    .credits a:hover { color: var(--gold); }
+    .credits a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+    .hint--mouse, .no-js .hint { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      .js .hint--mouse { display: inline; }
+      .hint--touch { display: none; }
+    }
+
+    /* ---------- entrances ---------- */
+
+    .js .addr, .js .lede, .js .why { animation: rise .6s cubic-bezier(.2, .8, .2, 1) both; }
+    .js .addr { animation-delay: .95s; }
+    .js .lede { animation-delay: 1.45s; }
+    .js .why { animation-delay: 1.6s; }
+    .js h1 .w {
+      animation: drop .7s cubic-bezier(.34, 1.56, .64, 1) both;
+      animation-delay: calc(1.05s + var(--i) * .09s);
+    }
+
+    @keyframes caret { 50% { opacity: 0; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+    @keyframes drop { from { opacity: 0; transform: translateY(-.7em) rotate(-7deg); } }
+    @keyframes part-l { 60% { transform: translateX(-70%) skewX(6deg); } to { transform: translateX(-104%); visibility: hidden; } }
+    @keyframes part-r { 60% { transform: translateX(70%) skewX(-6deg); } to { transform: translateX(104%); visibility: hidden; } }
+    @keyframes sway { from { transform: skewX(-.7deg); } to { transform: skewX(.9deg); } }
+    @keyframes rustle {
+      0%, 100% { transform: scaleX(var(--m, 1)) skewX(0); }
+      20% { transform: scaleX(var(--m, 1)) skewX(-5deg); }
+      45% { transform: scaleX(var(--m, 1)) skewX(4deg); }
+      70% { transform: scaleX(var(--m, 1)) skewX(-2deg); }
+    }
+    @keyframes step {
+      0%, 100% { transform: rotate(17deg); }
+      50% { transform: rotate(-17deg) translateY(-2px); }
+    }
+    @keyframes bob { to { transform: translateY(-2.5px); } }
+    @keyframes sweep { from { transform: rotate(7deg); } to { transform: rotate(-9deg); } }
+    @keyframes dust {
+      0% { opacity: 0; transform: translate(0, 0) scale(.4); }
+      20% { opacity: .75; }
+      100% { opacity: 0; transform: translate(14px, -12px) scale(1.3); }
+    }
+    @keyframes blink {
+      0%, 94%, 100% { transform: scaleY(1); }
+      96.5% { transform: scaleY(.08); }
+    }
+    @keyframes shiver { from { transform: translateX(-.9px); } to { transform: translateX(.9px); } }
+    @keyframes sweat {
+      0% { opacity: 0; transform: translateY(-4px); }
+      25% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(14px); }
+    }
+    @keyframes zoom { from { opacity: .9; transform: translateX(0); } to { opacity: .3; transform: translateX(-5px); } }
+    @keyframes yap { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+
+    @media (max-width: 520px) {
+      .bill { padding-inline: calc(var(--curtain-w) + .8rem); }
+      .addr { font-size: .78rem; }
+      .why { margin-top: 1.3rem; }
+      .why button { font-size: .92rem; }
+      .credits { justify-content: center; font-size: .78rem; }
+      .hint { display: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .drape { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="swag" viewBox="0 0 200 600" preserveAspectRatio="none">
+        <path fill="#b3213f" d="M0 0H200C196 210 168 352 70 418c26 52 34 122 30 182H0Z"/>
+        <g fill="none" stroke="#7d1330" stroke-width="9" stroke-linecap="round" opacity=".6">
+          <path d="M28 0C32 180 30 330 24 408"/>
+          <path d="M72 0C78 180 66 322 40 411"/>
+          <path d="M118 0C122 172 100 312 54 415"/>
+          <path d="M164 0C166 160 138 300 66 418"/>
+          <path d="M26 430C32 484 30 552 28 600"/>
+          <path d="M60 432C72 486 72 552 70 600"/>
+        </g>
+        <g fill="none" stroke="#dc5273" stroke-width="4" stroke-linecap="round" opacity=".55">
+          <path d="M50 0C56 180 48 326 32 409"/>
+          <path d="M95 0C101 176 84 316 47 413"/>
+          <path d="M142 0C146 166 120 306 60 416"/>
+          <path d="M44 430C52 484 52 552 50 600"/>
+          <path d="M84 446C92 496 92 556 90 600"/>
+        </g>
+        <path fill="#f5b93f" d="M0 398C30 394 58 402 78 412L73 432C54 421 28 414 0 418Z"/>
+        <path fill="none" stroke="#f5b93f" stroke-width="4" stroke-linecap="round" d="M72 426C80 440 80 452 78 464"/>
+        <path fill="#f5b93f" d="M70 462h16l4 34H66Z"/>
+        <path fill="none" stroke="#c98a1b" stroke-width="2" d="M74 470v24M78 470v24M82 470v24"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="theatre" id="theatre">
+    <main class="bill">
+      <p class="addr" aria-hidden="true"><span class="addr__dim">https://</span><span class="addr__slot"></span><span>.isindemo.com</span></p>
+
+      <h1>
+        <span class="w nothing" style="--i:0">Nothing</span>
+        <span class="w" style="--i:1">is</span>
+        <span class="w" style="--i:2">in</span>
+        <span class="w" style="--i:3">demo.</span>
+      </h1>
+
+      <p class="lede">This is where I park client projects so they can be poked at before they go live. Every project gets its own subdomain. The bare domain gets a janitor.</p>
+
+      <div class="why">
+        <p class="why__q" id="why-q">Why are you here?</p>
+        <div class="why__opts" role="group" aria-labelledby="why-q">
+          <button type="button" data-why="client">I’m a client</button>
+          <button type="button" data-why="lost">I’m lost</button>
+          <button type="button" data-why="robot">I’m a robot</button>
+          <button type="button" data-why="snoop">Just snooping</button>
+        </div>
+      </div>
+
+      <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+    </main>
+
+    <div class="stage-space" aria-hidden="true"></div>
+
+    <div class="floor" aria-hidden="true">
+      <div class="floor__surface"></div>
+      <div class="floor__apron"></div>
+    </div>
+
+    <svg class="mic" viewBox="0 0 60 150" aria-hidden="true">
+      <ellipse cx="30" cy="143" rx="21" ry="5.5" fill="#1d1430"/>
+      <rect x="28" y="44" width="4" height="99" rx="2" fill="#a59dbd"/>
+      <rect x="24" y="36" width="12" height="12" rx="3" fill="#1d1430"/>
+      <g transform="rotate(16 30 42)">
+        <rect x="23" y="6" width="14" height="34" rx="7" fill="#e3ddef"/>
+        <rect x="23" y="24" width="14" height="5" fill="#1d1430"/>
+        <path d="M26 12h8M26 17h8" stroke="#a59dbd" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </svg>
+
+    <div class="janitor" id="janitor" data-state="enter" data-moving="0" aria-hidden="true">
+      <div class="janitor__flip">
+        <svg viewBox="0 0 140 132">
+          <ellipse cx="58" cy="124" rx="35" ry="5.5" fill="#140d1f" opacity=".3"/>
+          <g class="j-zoom" stroke="#fff3d6" stroke-width="3.5" stroke-linecap="round">
+            <path d="M0 50h15M-7 68h17M2 86h12"/>
+          </g>
+          <g class="j-lean">
+            <g class="j-bob">
+              <g class="j-leg j-leg--a">
+                <rect x="40" y="94" width="9" height="24" rx="4.5" fill="#241a36"/>
+                <rect x="36" y="113" width="20" height="10" rx="5" fill="#fff3d6"/>
+              </g>
+              <g class="j-leg j-leg--b">
+                <rect x="66" y="94" width="9" height="24" rx="4.5" fill="#241a36"/>
+                <rect x="62" y="113" width="20" height="10" rx="5" fill="#fff3d6"/>
+              </g>
+
+              <path d="M20 60C18 4 98 4 96 60" fill="none" stroke="#f5b93f" stroke-width="6" stroke-linecap="round"/>
+              <rect x="22" y="26" width="72" height="74" rx="17" fill="#3ad6bd"/>
+              <path d="M22 76h72v7a17 17 0 0 1-17 17H39a17 17 0 0 1-17-17Z" fill="#1fa893" opacity=".55"/>
+              <rect x="31" y="35" width="13" height="13" rx="3.5" fill="#fff" opacity=".4"/>
+              <rect x="13" y="47" width="14" height="25" rx="6" fill="#f5b93f"/>
+              <rect x="89" y="47" width="14" height="25" rx="6" fill="#f5b93f"/>
+              <path d="M20 71Q20 91 39 91" fill="none" stroke="#241a36" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="41" cy="91" r="4" fill="#241a36"/>
+
+              <g class="j-eye">
+                <ellipse cx="46" cy="58" rx="10" ry="11" fill="#fff"/>
+                <g class="j-look"><circle class="j-pupil" cx="46" cy="58" r="4.6" fill="#140d1f"/></g>
+              </g>
+              <g class="j-eye">
+                <ellipse cx="72" cy="58" rx="10" ry="11" fill="#fff"/>
+                <g class="j-look"><circle class="j-pupil" cx="72" cy="58" r="4.6" fill="#140d1f"/></g>
+              </g>
+              <path class="j-mouth j-mouth--calm" d="M53 80Q59 84.5 65 80" fill="none" stroke="#140d1f" stroke-width="3" stroke-linecap="round"/>
+              <ellipse class="j-mouth j-mouth--o" cx="59" cy="82" rx="5" ry="6" fill="#140d1f"/>
+              <path class="j-sweat" d="M104 20q6 9 0 13q-6-4 0-13Z" fill="#a6ecff"/>
+
+              <g class="j-broom">
+                <path d="M86 26L114 106" stroke="#e9c58c" stroke-width="5" stroke-linecap="round"/>
+                <path d="M102 104L126 99L136 123L98 124Z" fill="#f2c14e"/>
+                <path d="M108 110l-3 13M116 108l1 15M123 106l5 16" stroke="#c98a1b" stroke-width="2" stroke-linecap="round"/>
+                <path d="M102 104L126 99L128 105L101 110Z" fill="#b3213f"/>
+                <circle cx="91" cy="41" r="7" fill="#1fa893"/>
+                <circle cx="101" cy="70" r="7" fill="#1fa893"/>
+              </g>
+            </g>
+          </g>
+          <g class="j-dust" fill="#fff3d6">
+            <circle cx="134" cy="118" r="3"/>
+            <circle cx="138" cy="121" r="2.2"/>
+            <circle cx="131" cy="122" r="2.6"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="curtain curtain--l" aria-hidden="true"><svg><use href="#swag"/></svg></div>
+    <div class="curtain curtain--r" aria-hidden="true"><svg><use href="#swag"/></svg></div>
+    <div class="valance" aria-hidden="true"></div>
+
+    <div class="dark" aria-hidden="true"></div>
+    <svg class="beam" aria-hidden="true">
+      <defs>
+        <linearGradient id="cone-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffe9a8" stop-opacity=".34"/>
+          <stop offset="1" stop-color="#ffe9a8" stop-opacity=".05"/>
+        </linearGradient>
+      </defs>
+      <polygon id="cone" fill="url(#cone-grad)" points=""/>
+    </svg>
+    <svg class="lamp" viewBox="0 0 44 52" aria-hidden="true">
+      <rect x="19" y="0" width="6" height="12" rx="2" fill="#0f0919"/>
+      <path d="M11 9H33L39 41H5Z" fill="#1d1430" stroke="#0f0919" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M13 18H31" stroke="#3b2c57" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="22" cy="42" rx="17" ry="5.5" fill="#fff3d6"/>
+    </svg>
+
+    <div class="bubble" id="bubble" aria-hidden="true"></div>
+
+    <footer class="credits">
+      <span>A <a href="https://www.thepixelme.com/">ThePixelMe</a> production</span>
+      <span class="hint hint--mouse">Psst. You’re holding the spotlight.</span>
+      <span class="hint hint--touch">Psst. Tap to aim the spotlight.</span>
+    </footer>
+
+    <div class="drape drape--l" aria-hidden="true"></div>
+    <div class="drape drape--r" aria-hidden="true"></div>
+  </div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const CAUGHT = [
+      'Yo!',
+      'Why are you here?',
+      'No show tonight.',
+      'I just sweep here.',
+      'The demos are on subdomains.',
+      'Please stop.',
+      'I have a union, you know.',
+      'Fine. Ta-da.',
+      'That was the whole act.',
+      'It’s called staging. Nobody said stage.',
+      'You again?',
+      'Still nothing.',
+    ];
+    const NOPE = ['Nope.', 'Not here.', 'Occupied.'];
+    const ANSWERS = {
+      client: 'Lovely. Your demo lives on a subdomain. Use the full link the boss sent you.',
+      lost: 'Join the club. Nothing here but me and a broom. The back button is that way.',
+      robot: 'Beep boop. Nothing to index. Tell the other bots.',
+      snoop: 'Respect. The good stuff is on subdomains, though, and I’m no snitch.',
+    };
+
+    const $ = (s) => document.querySelector(s);
+    const theatre = $('#theatre');
+    const dark = $('.dark');
+    const cone = $('#cone');
+    const grad = $('#cone-grad');
+    const lamp = $('.lamp');
+    const valance = $('.valance');
+    const janitor = $('#janitor');
+    const flip = $('.janitor__flip');
+    const looks = janitor.querySelectorAll('.j-look');
+    const bubble = $('#bubble');
+    const live = $('#live');
+    const curtains = { '-1': $('.curtain--l'), '1': $('.curtain--r') };
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const BODY = 58 / 140; // where his middle sits inside the sprite
+
+    const M = {};
+    const spot = { x: 0, y: 0, tx: 0, ty: 0, r: 0 };
+    const j = { x: 0, target: 0, face: -1, side: 1, state: 'enter', t: 0, wait: 0, lit: 0, cool: 0, hold: 0, hurry: true, hide: false, catches: 0, line: 0, nopes: 0 };
+    const auto = { phase: 'mic', t: 0, dur: 2.2, seed: rand(0, 20) };
+    let pointerAt = -1e9;
+    let override = 0;
+    let bubbleFor = 0;
+
+    function measure() {
+      M.w = theatre.clientWidth;
+      M.h = theatre.clientHeight;
+      M.curtain = curtains[1].offsetWidth - 10;
+      M.jw = janitor.offsetWidth;
+      M.jh = janitor.offsetHeight;
+      M.jy = janitor.offsetTop + M.jh * .5;
+      M.r = clamp(Math.min(M.w, window.innerHeight) * .17, 104, 170);
+      M.min = M.curtain + M.jw * .5;
+      M.max = M.w - M.curtain - M.jw * .5;
+      M.walk = clamp(M.w * .035, 26, 50);
+      M.run = clamp(M.w * .6, 380, 900);
+      M.lampX = M.w / 2;
+      M.lampY = valance.offsetHeight + 14;
+    }
+    // The swagged curtain only covers ~45% of its width down at floor level.
+    const wingX = (side) => side < 0 ? M.curtain * .42 - M.jw * .34 : M.w - (M.curtain * .42 - M.jw * .34);
+    const peekX = (side) => side < 0 ? M.curtain * .46 + M.jw * .05 : M.w - (M.curtain * .46 + M.jw * .05);
+
+    function setState(s) {
+      j.state = s;
+      j.t = 0;
+      janitor.dataset.state = s;
+    }
+
+    function rustle(side) {
+      const el = curtains[side];
+      el.classList.remove('is-rustle');
+      void el.offsetWidth;
+      el.classList.add('is-rustle');
+    }
+
+    function placeBubble() {
+      const bw = bubble.offsetWidth;
+      const edge = M.curtain + 6;
+      const left = clamp(j.x - bw / 2, edge, Math.max(edge, M.w - edge - bw));
+      bubble.style.left = left.toFixed(1) + 'px';
+      bubble.style.setProperty('--tail', clamp(j.x - left, 22, bw - 22).toFixed(1) + 'px');
+    }
+    function say(text, secs) {
+      bubble.textContent = text;
+      placeBubble();
+      bubble.classList.add('is-on');
+      bubbleFor = secs;
+    }
+    function hush() {
+      bubble.classList.remove('is-on');
+      bubbleFor = 0;
+    }
+
+    function stroll() {
+      j.target = rand(M.min, M.max);
+      j.wait = 0;
+    }
+
+    function caught() {
+      const line = CAUGHT[j.line];
+      j.line = j.line + 1 < CAUGHT.length ? j.line + 1 : 2;
+      j.catches++;
+      j.hold = 1.1 + line.length * .035;
+      setState('caught');
+      say(line, j.hold + .4);
+    }
+
+    function flee() {
+      const away = j.x >= spot.x ? 1 : -1;
+      const room = away > 0 ? M.max - j.x : j.x - M.min;
+      let dir = away;
+      j.hide = false;
+      if (M.max - M.min < spot.r * 3.2) {
+        // nowhere on stage to stand outside the light: head for the nearest wing
+        j.hide = true;
+        dir = j.x > M.w / 2 ? 1 : -1;
+      } else if (room < spot.r * 1.5) {
+        if (j.catches % 2) dir = -away; else j.hide = true;
+      } else if (j.catches % 4 === 0) {
+        j.hide = true;
+      }
+      j.side = dir;
+      if (j.hide) j.target = wingX(dir);
+      else if (dir > 0) j.target = rand(Math.min(M.max, Math.max(j.x + spot.r * 1.8, M.w * .6)), M.max);
+      else j.target = rand(M.min, Math.max(M.min, Math.min(j.x - spot.r * 1.8, M.w * .4)));
+      setState('flee');
+    }
+
+    function answer(key) {
+      const text = ANSWERS[key];
+      live.textContent = text;
+      if (still) { say(text, Infinity); return; }
+      j.hold = 2.6 + text.length * .045;
+      j.target = clamp(j.x, M.min, M.max);
+      j.nopes = 0;
+      override = j.hold;
+      setState('talk');
+      say(text, j.hold);
+    }
+
+    function aim(dt, now, age) {
+      let rate = 9;
+      if (override > 0) {
+        override -= dt;
+        rate = 5;
+        spot.tx = j.x;
+        spot.ty = M.jy - M.jh * .1;
+      } else if (now - pointerAt > 3.8) {
+        rate = 2.4;
+        auto.t += dt;
+        const s = now + auto.seed;
+        const next = (phase, dur) => { auto.phase = phase; auto.t = 0; auto.dur = dur; };
+        if (auto.phase === 'mic') {
+          spot.tx = M.w / 2;
+          spot.ty = M.jy - M.jh * .3;
+          if (age > 3.4 && auto.t > auto.dur) next('search', .4);
+        } else if (auto.phase === 'search') {
+          spot.tx = M.w / 2 + Math.sin(s * .7) * (M.w / 2 - M.curtain - spot.r * .3);
+          spot.ty = M.jy - M.jh * .3 + Math.sin(s * 1.3) * M.jh * .6 + Math.min(0, Math.sin(s * .37)) * M.h * .22;
+          if (auto.t > auto.dur && j.state === 'sweep' && !j.cool) next('lock', 0);
+        } else if (auto.phase === 'lock') {
+          rate = 3.4;
+          spot.tx = j.x;
+          spot.ty = M.jy - M.jh * .1;
+          if (j.state === 'flee') next('linger', 1.3);
+          else if (j.state !== 'sweep' && j.state !== 'caught') next('search', 2.5);
+        } else if (auto.t > auto.dur) {
+          next('search', rand(3, 5.5));
+        }
+      }
+      const k = 1 - Math.exp(-dt * rate);
+      spot.x += (spot.tx - spot.x) * k;
+      spot.y += (spot.ty - spot.y) * k;
+      // house lights down, then the lamp sputters on
+      const power = age < 1.35 ? 0 : age < 1.5 ? 1 : age < 1.6 ? .2 : 1;
+      spot.r += (M.r * power - spot.r) * (1 - Math.exp(-dt * 16));
+    }
+
+    function act(dt, age) {
+      j.t += dt;
+      j.cool = Math.max(0, j.cool - dt);
+      const inLight = spot.r > 40 && Math.hypot(spot.x - j.x, spot.y - M.jy) < spot.r * .62;
+      j.lit = inLight ? j.lit + dt : 0;
+      const there = Math.abs(j.target - j.x) < 2;
+      let speed = 0;
+
+      switch (j.state) {
+        case 'enter':
+          if (age > 2.9) {
+            j.target = rand(M.w * .58, Math.max(M.w * .58, M.max));
+            j.hurry = true;
+            j.cool = 1.6;
+            rustle(1);
+            setState('sweep');
+          }
+          break;
+        case 'sweep':
+          if (j.lit > .22 && !j.cool) { caught(); break; }
+          if (j.wait > 0) {
+            j.wait -= dt;
+            if (j.wait <= 0) stroll();
+          } else if (there) {
+            j.hurry = false;
+            j.wait = rand(.8, 2.2);
+          } else {
+            speed = M.walk * (j.hurry ? 2.8 : 1);
+          }
+          break;
+        case 'caught':
+          if (j.t > j.hold) flee();
+          break;
+        case 'flee':
+          speed = M.run;
+          if (there) {
+            if (j.hide) {
+              rustle(j.side);
+              j.wait = rand(1.3, 2.3);
+              setState('hidden');
+            } else {
+              j.cool = 1.2;
+              j.wait = rand(.5, 1.2);
+              setState('sweep');
+            }
+          }
+          break;
+        case 'hidden':
+          if (j.t > j.wait) {
+            j.target = peekX(j.side);
+            j.wait = rand(1.6, 2.6);
+            setState('peek');
+          }
+          break;
+        case 'peek':
+          speed = M.walk * 1.8;
+          if (!there) j.t = 0;
+          else if (j.lit > .3 && j.nopes < 2) {
+            j.nopes++;
+            j.hide = true;
+            j.target = wingX(j.side);
+            say(NOPE[(j.catches + j.nopes) % NOPE.length], .9);
+            setState('flee');
+          } else if (j.t > j.wait) {
+            j.nopes = 0;
+            j.cool = 1;
+            j.hurry = true;
+            stroll();
+            rustle(j.side);
+            setState('sweep');
+          }
+          break;
+        case 'talk':
+          speed = M.run * .5;
+          if (j.t > j.hold) {
+            j.cool = 1.5;
+            j.wait = .6;
+            setState('sweep');
+          }
+          break;
+      }
+
+      let moving = false;
+      if (speed && !there) {
+        const dir = Math.sign(j.target - j.x);
+        j.x += dir * Math.min(speed * dt, Math.abs(j.target - j.x));
+        j.face = dir;
+        moving = true;
+      } else if (j.state === 'peek') {
+        j.face = -j.side;
+      }
+      const flag = moving ? '1' : '0';
+      if (janitor.dataset.moving !== flag) janitor.dataset.moving = flag;
+
+      if (bubbleFor > 0) {
+        bubbleFor -= dt;
+        if (bubbleFor <= 0) hush();
+        else if (j.state !== 'flee') placeBubble(); // words hang in the air when he bolts
+      }
+    }
+
+    function draw() {
+      dark.style.setProperty('--sx', spot.x.toFixed(1) + 'px');
+      dark.style.setProperty('--sy', spot.y.toFixed(1) + 'px');
+      dark.style.setProperty('--r', Math.max(0, spot.r).toFixed(1) + 'px');
+
+      const dx = spot.x - M.lampX, dy = spot.y - M.lampY, d = Math.hypot(dx, dy) || 1;
+      const nx = -dy / d, ny = dx / d, a = 10, r = spot.r * .9;
+      cone.setAttribute('points', [
+        M.lampX + nx * a, M.lampY + ny * a, M.lampX - nx * a, M.lampY - ny * a,
+        spot.x - nx * r, spot.y - ny * r, spot.x + nx * r, spot.y + ny * r,
+      ].map((n) => n.toFixed(1)).join(' '));
+      grad.setAttribute('x1', M.lampX);
+      grad.setAttribute('y1', M.lampY);
+      grad.setAttribute('x2', spot.x.toFixed(1));
+      grad.setAttribute('y2', spot.y.toFixed(1));
+      cone.style.opacity = clamp(spot.r / M.r, 0, 1);
+      lamp.style.transform = `rotate(${(Math.atan2(dy, dx) * 180 / Math.PI - 90).toFixed(1)}deg)`;
+
+      janitor.style.transform = `translate3d(${(j.x - M.jw * BODY).toFixed(1)}px,0,0)`;
+      flip.style.transform = `scaleX(${j.face})`;
+
+      let px = 0, py = 0;
+      if (j.state !== 'caught' && j.state !== 'talk') {
+        const ex = spot.x - j.x, ey = spot.y - (M.jy - M.jh * .08), ed = Math.hypot(ex, ey) || 1;
+        const reach = Math.min(1, ed / 60) * 4.4;
+        px = ex / ed * reach * j.face;
+        py = ey / ed * reach;
+      }
+      const look = `translate(${px.toFixed(2)} ${py.toFixed(2)})`;
+      looks.forEach((g) => g.setAttribute('transform', look));
+    }
+
+    function point(e) {
+      spot.tx = e.pageX;
+      spot.ty = e.pageY;
+      pointerAt = performance.now() / 1000;
+      auto.phase = 'search';
+      auto.t = 0;
+      auto.dur = 1.5;
+      if (still) { spot.x = spot.tx; spot.y = spot.ty; draw(); }
+    }
+    window.addEventListener('pointermove', point, { passive: true });
+    window.addEventListener('pointerdown', point, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => { pointerAt = -1e9; });
+
+    document.querySelectorAll('[data-why]').forEach((b) => {
+      b.addEventListener('click', () => answer(b.dataset.why));
+    });
+
+    measure();
+    spot.x = spot.tx = M.w / 2;
+    spot.y = spot.ty = M.jy - M.jh * .3;
+
+    if (still) {
+      // No chase: he just stands in the light and says his piece.
+      j.x = clamp(M.w * .66, M.min, M.max);
+      j.face = -1;
+      spot.r = M.r;
+      spot.x = j.x;
+      spot.y = M.jy - M.jh * .1;
+      setState('talk');
+      draw();
+      say('Yo! Why are you here?', Infinity);
+      new ResizeObserver(() => {
+        measure();
+        j.x = clamp(M.w * .66, M.min, M.max);
+        spot.r = M.r;
+        if (pointerAt < 0) { spot.x = j.x; spot.y = M.jy - M.jh * .1; }
+        draw();
+        placeBubble();
+      }).observe(theatre);
+      return;
+    }
+
+    j.x = j.target = wingX(1);
+    new ResizeObserver(() => {
+      measure();
+      if (j.state !== 'enter' && j.state !== 'hidden' && j.state !== 'peek' && !(j.state === 'flee' && j.hide)) {
+        j.target = clamp(j.target, M.min, M.max);
+      } else {
+        j.x = j.target = j.state === 'peek' ? peekX(j.side) : wingX(j.side);
+      }
+    }).observe(theatre);
+
+    let t0 = 0, last = 0;
+    function frame(ms) {
+      const now = ms / 1000;
+      if (!t0) { t0 = last = now; }
+      const dt = Math.min(.05, now - last);
+      last = now;
+      aim(dt, now, now - t0);
+      act(dt, now - t0);
+      draw();
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+  </script>
+</body>
+</html>
