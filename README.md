@@ -32,3 +32,7 @@ Everything the janitor says is at the top of the `<script>` in `index.html`:
 - `NOPE`: what he says when you find him hiding behind a curtain.
 - `ANSWERS`: his replies to the "Why are you here?" buttons.
 - `ADDRESS`: what he says when the address bar is submitted (empty, `www`, or on the way out).
+
+## License
+
+[MIT](LICENSE) © ThePixelMe
